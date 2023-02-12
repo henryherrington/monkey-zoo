@@ -1,34 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
+import { useState } from "react";
 
-const Login = () => {
+function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const Auth = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/login", {
+      await axios.post("http://localhost:8080/users", {
         username: username,
         password: password,
+        confPassword: confPassword,
       });
     } catch (error) {
       if (error.response) {
         setErrorMsg(error.response.data.msg);
       }
     }
-  };
+  }
 
   return (
-    <div>
-      <form onSubmit={Auth}>
+    <>
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSubmit}>
         <p>Username</p>
         <div>
           <input
             type="text"
             required
-            placeholder="Username"
+            placeholder="enter username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -38,18 +42,28 @@ const Login = () => {
           <input
             type="password"
             required
-            placeholder="Password"
+            placeholder="enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-
+        <p>Confirm Password</p>
         <div>
-          <button>Log In</button>
+          <input
+            type="password"
+            required
+            placeholder="reenter password"
+            value={confPassword}
+            onChange={(e) => setConfPassword(e.target.value)}
+          />
+        </div>
+        <div>
+          <button>Sign Up</button>
         </div>
       </form>
-    </div>
+      {errorMsg}
+    </>
   );
-};
+}
 
-export default Login;
+export default Signup;
