@@ -1,4 +1,5 @@
 import React from "react";
+import Login from "./Login";
 
 import {
   createBrowserRouter,
@@ -11,6 +12,9 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Dashboard />,
+  },{
+    path: "/login",
+    element: <Login />,
   },
 ]);
 

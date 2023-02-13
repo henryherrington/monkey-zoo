@@ -1,12 +1,13 @@
 import React,{useState} from 'react'
-import Login from './Login'
-import Landing from './Landing'
+import {Navigate} from 'react-router-dom'
 
 function Dashboard() {
-    const [token, setToken] = useState()
-    if(!token){
-        {return <Landing />}
-    }
+  const [token] = useState()
+
+  if(!token){
+    return <Navigate to="/login"></Navigate>
+  }
+
   return (
     <div>Welcome to MONKEY ZOO.</div>
   )
