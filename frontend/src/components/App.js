@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "./Login";
+import Landing from "./Landing";
 
 import {
   createBrowserRouter,
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <Dashboard />,
   },{
     path: "/login",
-    element: <Login />,
+    element: <Landing />,
   },
 ]);
 
