@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 // import axios from "axios";
 
-function Login(props) {
+function Login() {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [cookies, setCookie] = useCookies(['username']);
+  const [errorMsg] = useState("");
+  const [, setCookie] = useCookies(['username']);
   
-
   // const Auth = async (e) => {
   //   e.preventDefault();
   //   try {
