@@ -1,37 +1,50 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
+// import axios from "axios";
 
-function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+function Login(props) {
+  const [usernameInput, setUsernameInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [cookies, setCookie] = useCookies(['username']);
+  
 
-  const Auth = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("http://localhost:8080/login", {
-        username: username,
-        password: password,
-      });
-    } catch (error) {
-      if (error.response) {
-        setErrorMsg(error.response.data.msg);
-      }
-    }
-  };
+  // const Auth = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await axios.post("http://localhost:8080/login", {
+  //       username: username,
+  //       password: password,
+  //     });
+  //   } catch (error) {
+  //     if (error.response) {
+  //       setErrorMsg(error.response.data.msg);
+  //     }
+  //   }
+  // };
+
+  const navigate = useNavigate();
+
+  function login(e) {
+    e.preventDefault()
+    setCookie('username', usernameInput, { path: '/' });
+    navigate("/")
+  }
 
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={Auth}>
+      <form onSubmit={login}>
         <p>Username</p>
         <div>
           <input
             type="text"
             required
             placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={usernameInput}
+            autoComplete="username"
+            onChange={(e) => setUsernameInput(e.target.value)}
           />
         </div>
         <p>Password</p>
@@ -40,11 +53,11 @@ function Login() {
             type="password"
             required
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={passwordInput}
+            autoComplete="current-password"
+            onChange={(e) => setPasswordInput(e.target.value)}
           />
         </div>
-
         <div>
           <button>Login</button>
         </div>

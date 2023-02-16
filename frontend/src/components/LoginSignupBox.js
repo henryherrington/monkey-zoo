@@ -9,7 +9,10 @@ function LoginSignupBox() {
 const [isLoginScreen, setIsLoginScreen] = useState(true);
   return (
     <div className="login-signup-box">
-        {isLoginScreen ? <Login /> : <Signup />}
+        {isLoginScreen ?
+            <Login/>
+        : <Signup/>
+        }
         {isLoginScreen ?
             <p>Don't have an account? <span className="switch-screen-link"
                 onClick={() => setIsLoginScreen(!isLoginScreen)}>
@@ -20,7 +23,8 @@ const [isLoginScreen, setIsLoginScreen] = useState(true);
                 onClick={() => setIsLoginScreen(!isLoginScreen)}>
                     Login
                 </span>
-            </p>}
+            </p>
+        }
     </div>
   );
 };
