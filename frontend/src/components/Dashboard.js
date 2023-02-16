@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { useCookies } from 'react-cookie';
+import React, { useEffect } from 'react'
+import Navbar from './Navbar'
+import { useNavigate } from "react-router-dom";
+import './Dashboard.css'
 
-function Dashboard() {
-  const [cookies] = useCookies(['username']);
-  const [username, setUsername] = useState('');
+function Dashboard(props) {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(cookies)
-    setUsername(cookies.username)
-  }, [cookies]);
+  useEffect (() => {
+    if (!props.username) {
+      navigate("/login")
+    }
+  }, [props.username, navigate])
 
+  console.log(props.username)
 
   return (
     <div>
+      <Navbar/>
       <h1>Welcome to MONKEY ZOO.</h1>
-      <p>Hello, {username}</p>
-      </div>
+      <p>Hello, {props.username}</p>
+    </div>
   )
 }
 

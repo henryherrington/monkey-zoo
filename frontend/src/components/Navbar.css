@@ -1,0 +1,13 @@
+.navbar {
+    background-color: red;
+    overflow: hidden;
+    padding: 6px;
+}
+
+.navbar-right {
+    float: right;
+}
+
+.navbar-left {
+    float: left;
+}
