@@ -1,36 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
-// import axios from "axios";
+import axios from "axios";
+import "./Login.css";
 
 function Login() {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const [errorMsg] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [, setCookie] = useCookies(['username']);
   
-  // const Auth = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await axios.post("http://localhost:8080/login", {
-  //       username: username,
-  //       password: password,
-  //     });
-  //   } catch (error) {
-  //     if (error.response) {
-  //       setErrorMsg(error.response.data.msg);
-  //     }
-  //   }
-  // };
-
   const navigate = useNavigate();
 
-  function login(e) {
+  async function login(e) {
     e.preventDefault()
-    setCookie('username', usernameInput, { path: '/' });
-    navigate("/")
-  }
 
+    await axios.post("http://localhost:8080/login", {
+      username: usernameInput,
+      password: passwordInput,
+    }).then((response) => {
+      setCookie('username', usernameInput, { path: '/' });
+      navigate("/")
+    }).catch((error) => {
+      if (error.response) {
+        setErrorMessage(error.response.data.message);
+      }
+    })
+  }
+  
   return (
     <div>
       <h1>Login</h1>
@@ -61,7 +58,7 @@ function Login() {
           <button>Login</button>
         </div>
       </form>
-      {errorMsg}
+      <span className="error-message">{errorMessage}</span>
     </div>
   );
 };

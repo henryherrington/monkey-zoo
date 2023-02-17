@@ -12,8 +12,6 @@ function Dashboard(props) {
     }
   }, [props.username, navigate])
 
-  console.log(props.username)
-
   return (
     <div>
       <Navbar/>
